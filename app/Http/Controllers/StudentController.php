@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Student;
 use App\Models\Classroom;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
 use App\Http\Requests\StudentCreateRequest;
 
@@ -62,5 +63,25 @@ class StudentController extends Controller
        $student->update($request->all()); 
 
        return redirect('student/' . $student->id);
+    }
+
+    public function del($id) 
+    {
+        $student = Student::findOrFail($id);
+        return view('student-delete', ['student' => $student]);
+    }
+
+    public function delete($id)
+    {
+        //$student = DB::table('students')->where('id', $id);
+        $student = Student::findOrFail($id);
+        $student->delete();
+
+        if($student) {
+            Session::flash('status', 'success');
+            Session::flash('message', 'Successfully remove student');
+        }
+        return redirect('student');
+
     }
 }

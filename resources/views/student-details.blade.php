@@ -11,7 +11,9 @@
 
             <img src="{{asset('assets/img/profile-img.jpg')}}" alt="Profile" class="rounded-circle">
             <h2>{{$student->name}}</h2>
+            <a href="/student-del/{{$student->id}}" class="btn btn-danger btn-sm">Remove Student</a>
           </div>
+          
         </div>
 
       </div>
@@ -92,7 +94,7 @@
               <div class="tab-pane fade profile-edit pt-3" id="profile-edit">
 
                 <!-- Profile Edit Form -->
-                <form action="student-edit/{{$student->id}}" method="POST">
+                <form action="/student-edit/{{$student->id}}" method="POST">
                   @method('PUT')
                   @csrf
                   <div class="row mb-3">
