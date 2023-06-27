@@ -13,9 +13,9 @@ return new class extends Migration
     {
         Schema::create('student_extracurricular', function (Blueprint $table) {
             $table->unsignedBigInteger('student_id');
-            $table->foreign('student_id')->references('id')->on('students')->onDelete('restrict');
+            $table->foreign('student_id')->references('id')->on('students')->onDelete('cascade');
             $table->unsignedBigInteger('extracurricular_id');
-            $table->foreign('extracurricular_id')->references('id')->on('extracurriculars')->onDelete('restrict');
+            $table->foreign('extracurricular_id')->references('id')->on('extracurriculars')->onDelete('cascade');
         });
     }
 
