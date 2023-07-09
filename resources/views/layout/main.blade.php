@@ -36,6 +36,11 @@
   * Author: BootstrapMade.com
   * License: https://bootstrapmade.com/license/
   ======================================================== -->
+  <style>
+    .tist {
+        color:red;
+    }
+</style>
 </head>
 
 <body>
@@ -231,6 +236,7 @@
 
   <!-- Template Main JS File -->
   <script src="{{asset('assets/js/main.js')}}"></script>
+  <script src="{{asset('assets/js/train.js')}}"></script>
 
 </body>
 

@@ -16,7 +16,9 @@ use App\Http\Controllers\ExtracurricularController;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
-
+Route::get('/train', function() {
+    return view('train');
+});
 Route::get('/', function () {
     return view('welcome');
 });
@@ -48,3 +50,4 @@ Route::get('/extracurricular/{id}', [ExtracurricularController::class, 'details'
 
 Route::get('/teacher', [TeacherController::class, 'index']);
 Route::get('/teacher/{id}', [TeacherController::class, 'details']);
+
