@@ -38,6 +38,8 @@ Route::post('/students', [StudentController::class, 'insert']);
 Route::put('student-edit/{id}', [StudentController::class, 'edit']);
 Route::get('student-del/{id}', [StudentController::class, 'del']);
 Route::delete('student-delete/{id}', [StudentController::class, 'delete']);
+Route::get('/student-deleted', [StudentController::class, 'deleted']);
+Route::get('/student/{id}/restore', [StudentController::class, 'restore']);
 
 
 Route::get('/class', [ClassController::class, 'class']);

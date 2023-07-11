@@ -11,9 +11,15 @@ use App\Http\Requests\StudentCreateRequest;
 
 class StudentController extends Controller
 {
-    public function student() 
-    {
-        $student = Student::get();
+    public function student(Request $request) 
+    {   $keyword = $request->keyword;
+        $student = Student::with('class')
+                            ->where('name', 'LIKE', '%'.$keyword.'%')
+                            ->orWhere('card', 'LIKE', '%'.$keyword.'%')
+                            ->orWhereHas('class', function($query) use($keyword){
+                                $query->where('name', 'LIKE', '%'.$keyword.'%');
+                            })
+                            ->paginate(5);
         return view('student', ['students' => $student]);
     }
 
@@ -83,5 +89,19 @@ class StudentController extends Controller
         }
         return redirect('student');
 
+    }
+    public function deleted() {
+        $student = Student::onlyTrashed()->get();
+        return view('deleted', ['students' => $student]);
+    }
+
+    public function restore($id) {
+        $deletedStudent = Student::withTrashed()->where('id', $id)->restore();
+
+        if($deletedStudent) {
+            Session::flash('status', 'success');
+            Session::flash('message', 'Successfully restore student');
+        }
+        return redirect('student');
     }
 }
