@@ -45,7 +45,26 @@ class StudentController extends Controller
         //$student->class_id = $request->class;
         //$student->save();
 
-        $student = Student::create($request->all());
+        $newName = '';
+
+        if($request->file('photo')) {
+            $extension = $request->file('photo')->getClientOriginalExtension();
+            $newName = $request->name.'-'.now()->timestamp.'.'.$extension;
+            $request->file('photo')->storeAs('photo', $newName);
+
+
+        }
+
+        //$request['image'] = $newName;
+        //$student = Student::create($request->all());
+
+        $student = new Student;
+        $student->name = $request->name;
+        $student->gender = $request->gender;
+        $student->card = $request->card;
+        $student->class_id = $request->class_id;
+        $student->image = $newName;
+        $student->save();
 
         if($student) {
             Session::flash('status', 'success');

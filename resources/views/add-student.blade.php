@@ -26,7 +26,7 @@
             <div class="card-body">
               <h5 class="card-title">Add New Student</h5>
               <!-- General Form Elements -->
-              <form action="students" method="POST">
+              <form action="students" method="POST" enctype="multipart/form-data">
                 @csrf
                 <div class="row mb-3">
                   <label for="inputText" class="col-sm-2 col-form-label">Name</label>
@@ -62,6 +62,13 @@
                     </select>
                   </div>
                 </div>
+                <div class="row mb-3">
+                  <label for="formFile" class="col-sm-2 col-form-label">Image</label>
+                  <div class="col-sm-10">
+                    <input class="form-control" type="file" id="photo" name="photo">
+                  </div>
+                </div>
+                
                 <div class="row mb-3">
                   <label class="col-sm-2 col-form-label"></label>
                   <div class="col-sm-10">
