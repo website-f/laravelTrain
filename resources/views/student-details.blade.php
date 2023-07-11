@@ -5,11 +5,17 @@
 
     <div class="row">
       <div class="col-xl-4">
-
+        @if (Session::has('status'))
+        <div class="alert alert-success" role="alert">{{Session::get('message')}}</div>
+        @endif
         <div class="card">
           <div class="card-body profile-card pt-4 d-flex flex-column align-items-center">
 
-            <img src="{{asset('assets/img/profile-img.jpg')}}" alt="Profile" class="rounded-circle">
+            @if ($student->image == true)
+                      <img src="{{asset('storage/photo/'.$student->image)}}" alt="Profile" class="img-thumbnail" height="200px" width="200px">
+                      @else
+                      <img src="{{asset('storage/photo/pic.jpg')}}" alt="Profile" class="img-thumbnail" height="200px" width="200px">
+                      @endif
             <h2>{{$student->name}}</h2>
             <a href="/student-del/{{$student->id}}" class="btn btn-danger btn-sm">Remove Student</a>
           </div>
@@ -94,15 +100,20 @@
               <div class="tab-pane fade profile-edit pt-3" id="profile-edit">
 
                 <!-- Profile Edit Form -->
-                <form action="/student-edit/{{$student->id}}" method="POST">
+                <form action="/student-edit/{{$student->id}}" method="POST" enctype="multipart/form-data">
                   @method('PUT')
                   @csrf
                   <div class="row mb-3">
                     <label for="profileImage" class="col-md-4 col-lg-3 col-form-label">Profile Image</label>
                     <div class="col-md-8 col-lg-9">
-                      <img src="{{asset('assets/img/profile-img.jpg')}}" alt="Profile">
+                      @if ($student->image != '')
+                      <img src="{{asset('storage/photo/'.$student->image)}}" alt="Profile" class="img-thumbnail" height="200px" width="200px">
+                      @else
+                      <img src="{{asset('storage/photo/pic.jpg')}}" alt="Profile">
+                      @endif
+        
                       <div class="pt-2">
-                        <a href="#" class="btn btn-primary btn-sm" title="Upload new profile image"><i class="bi bi-upload"></i></a>
+                        <input type="file" name="photo" class="col-5">
                         <a href="#" class="btn btn-danger btn-sm" title="Remove my profile image"><i class="bi bi-trash"></i></a>
                       </div>
                     </div>

@@ -6,7 +6,9 @@ use App\Models\Student;
 use App\Models\Classroom;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Storage;
 use App\Http\Requests\StudentCreateRequest;
 
 class StudentController extends Controller
@@ -85,7 +87,39 @@ class StudentController extends Controller
        //$student->class_id = $request->class_id;
        //$student->save();
 
-       $student->update($request->all()); 
+       $newName = '';
+        
+        
+
+        if($request->file('photo')) {
+            $extension = $request->file('photo')->getClientOriginalExtension();
+            $newName = $request->name.'-'.now()->timestamp.'.'.$extension;
+            $request->file('photo')->storeAs('photo', $newName);
+            Storage::delete('/photo/'.$student->image);
+        }
+        
+        if($newName != '') {
+            $student->name = $request->name;
+            $student->gender = $request->gender;
+            $student->card = $request->card;
+            $student->class_id = $request->class_id;
+            $student->image = $newName;
+            $student->save();
+        } else {
+            $student->name = $request->name;
+            $student->gender = $request->gender;
+            $student->card = $request->card;
+            $student->class_id = $request->class_id;
+            $student->save();
+        }
+             
+        
+        
+
+        if($student) {
+            Session::flash('status', 'success');
+            Session::flash('message', 'Student Edited!');
+        }
 
        return redirect('student/' . $student->id);
     }
