@@ -1,7 +1,12 @@
-const butts = document.querySelector('.butts');
 
-function handleClick() {
-    console.log("clikcedsss");
+
+const buyButtons = document.querySelectorAll('.buy');
+
+function handleBuyButtons(event) {
+    console.log(parseFloat(event.target.dataset.price));
+
 }
 
-butts.addEventListener('click', handleClick)
+buyButtons.forEach(function(buyButton) {
+    buyButton.addEventListener('click', handleBuyButtons);
+})

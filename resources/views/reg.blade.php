@@ -49,10 +49,7 @@
             <div class="col-lg-4 col-md-6 d-flex flex-column align-items-center justify-content-center">
 
               <div class="d-flex justify-content-center py-4">
-                <a href="index.html" class="logo d-flex align-items-center w-auto">
-                  <img src="assets/img/logo.png" alt="">
-                  <span class="d-none d-lg-block">NiceAdmin</span>
-                </a>
+                
               </div><!-- End Logo -->
 
               <div class="card mb-3">
@@ -64,7 +61,9 @@
                     <p class="text-center small">Enter your personal details to create account</p>
                   </div>
 
-                  <form class="row g-3 needs-validation" novalidate>
+                  <form method="POST" action="/register-fill" class="row g-3 needs-validation">
+                    @csrf
+                    @method('post')
                     <div class="col-12">
                       <label for="yourName" class="form-label">Your Name</label>
                       <input type="text" name="name" class="form-control" id="yourName" required>
@@ -78,9 +77,20 @@
                     </div>
 
                     <div class="col-12">
-                      <label for="yourPassword" class="form-label">Password</label>
+                      <label for="yourPassword" class="form-label">Passwordssssss</label>
                       <input type="password" name="password" class="form-control" id="yourPassword" required>
                       <div class="invalid-feedback">Please enter your password!</div>
+                    </div>
+
+                    <div class="col-12">
+                      <label class="form-label">Role</label>
+                      <div class="col-sm-10">
+                        <select name="role_id" id="role_id" class="form-select" aria-label="Default select example" required>
+                        <option selected>Choose Class</option>
+                        @foreach ($role as $item)
+                         <option value="{{$item->id}}">{{$item->name}}</option>
+                        @endforeach
+                        </select>
                     </div>
 
                     <div class="col-12">
@@ -94,13 +104,7 @@
                 </div>
               </div>
 
-              <div class="credits">
-                <!-- All the links in the footer should remain intact. -->
-                <!-- You can delete the links only if you purchased the pro version. -->
-                <!-- Licensing information: https://bootstrapmade.com/license/ -->
-                <!-- Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/nice-admin-bootstrap-admin-html-template/ -->
-                Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>
-              </div>
+              
 
             </div>
           </div>
