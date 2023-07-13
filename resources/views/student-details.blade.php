@@ -148,7 +148,7 @@
                   </div>
 
                   <div class="row mb-3">
-                    <label class="col-md-4 col-lg-3 col-form-label">Gender</label>
+                    <label class="col-md-4 col-lg-3 col-form-label">Class</label>
                   <div class="col-md-8 col-lg-9">
                     <select name="class_id" id="class_id" class="form-select" aria-label="Default select example" required>
                       <option value="{{$student->class->id}}">{{$student->class->name}}</option>

@@ -39,7 +39,7 @@
                 <td> {{$student->gender}}</td>
                 <td> {{$student->card}}</td>
                 <td> {{$student->class->name}}</td>
-                <td><a href="student/{{$student->id}}">Details</a></td>
+                <td><a href="student/{{$student->slug}}">Details</a></td>
             </tr>
         @endforeach
         </tbody>   

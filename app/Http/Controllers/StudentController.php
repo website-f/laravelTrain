@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Student;
 use App\Models\Classroom;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
@@ -25,9 +26,9 @@ class StudentController extends Controller
         return view('student', ['students' => $student]);
     }
 
-    public function details($id)
+    public function details($slug)
     {
-        $student = Student::with(['class.teacher', 'extracurriculars'])->findOrFail($id);
+        $student = Student::with(['class.teacher', 'extracurriculars'])->where('slug', $slug)->first();
         $class = Classroom::where('id', '!=', $student->class_id)->get(['id', 'name']);
         return view('student-details', ['student' => $student, 'class' => $class]);
     }
@@ -56,7 +57,8 @@ class StudentController extends Controller
 
 
         }
-
+        
+        
         //$request['image'] = $newName;
         //$student = Student::create($request->all());
 
@@ -121,7 +123,7 @@ class StudentController extends Controller
             Session::flash('message', 'Student Edited!');
         }
 
-       return redirect('student/' . $student->id);
+       return redirect('student/' . $student->slug);
     }
 
     public function del($id) 
@@ -157,4 +159,14 @@ class StudentController extends Controller
         }
         return redirect('student');
     }
+
+    /* update data all
+    public function massUpdate() {
+        $student = Student::all();
+        collect($student)->map(function($item){
+            $item->slug = Str::slug($item->name, '_');
+            $item->save();
+        });
+    }
+    */
 }
