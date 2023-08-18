@@ -97,7 +97,7 @@ class StudentController extends Controller
             $extension = $request->file('photo')->getClientOriginalExtension();
             $newName = $request->name.'-'.now()->timestamp.'.'.$extension;
             $request->file('photo')->storeAs('photo', $newName);
-            Storage::delete('/photo/'.$student->image);
+            Storage::delete('/photo/'.$student->image); 
         }
         
         if($newName != '') {

@@ -134,7 +134,7 @@
                       @if ($student->gender == 'L')
                           <option value="P">P</option>
                       @else
-                          <option value="P">L</option>
+                          <option value="L">L</option>
                       @endif
                     </select>
                   </div>
