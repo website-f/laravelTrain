@@ -13,6 +13,6 @@ class Extracurricular extends Model
     
     public function students()
     {
-        return $this->belongsToMany(Student::class, 'student_extracurricular', 'student_id', 'extracurricular_id');
+        return $this->belongsToMany(Student::class, 'student_extracurricular','extracurricular_id', 'student_id');
     }
 }

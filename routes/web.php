@@ -58,4 +58,4 @@ Route::get('/extracurricular/{id}', [ExtracurricularController::class, 'details'
 Route::get('/teacher', [TeacherController::class, 'index'])->middleware('auth');
 Route::get('/teacher/{id}', [TeacherController::class, 'details'])->middleware(['auth', 'only-admin-and-teacher']);
 
-//Route::get('/student-mass-update', [StudentController::class, 'massUpdate']);
+Route::get('/student-mass-update', [StudentController::class, 'massUpdate']);

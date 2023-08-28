@@ -33,7 +33,7 @@
             @foreach ($extra->students as $item)
               <tr>
                 <th>
-                    # <a href="student/{{$item->id}}">{{$item->name}}</a>
+                    # <a href="/student/{{$item->slug}}">{{$item->name}}</a>
                 </th>
               </tr>
             @endforeach

@@ -6,6 +6,7 @@ use App\Models\Student;
 use App\Models\Classroom;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+use App\Models\Extracurricular;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Session;
@@ -30,13 +31,14 @@ class StudentController extends Controller
     {
         $student = Student::with(['class.teacher', 'extracurriculars'])->where('slug', $slug)->first();
         $class = Classroom::where('id', '!=', $student->class_id)->get(['id', 'name']);
-        return view('student-details', ['student' => $student, 'class' => $class]);
+        $ext = Extracurricular::all();
+        return view('student-details', ['student' => $student, 'class' => $class, 'extracurriculars' => $ext]);
     }
 
     public function create()
     {
         $class = Classroom::select('id', 'name')->get();
-        return view('add-student', ['class' => $class]);
+        return view('add-student', ['class' => $class,]);
     }
 
     public function insert(StudentCreateRequest $request)
@@ -106,12 +108,14 @@ class StudentController extends Controller
             $student->card = $request->card;
             $student->class_id = $request->class_id;
             $student->image = $newName;
+            $student->extracurriculars()->sync($request->input('extracurriculars'));
             $student->save();
         } else {
             $student->name = $request->name;
             $student->gender = $request->gender;
             $student->card = $request->card;
             $student->class_id = $request->class_id;
+            $student->extracurriculars()->sync($request->input('extracurriculars'));
             $student->save();
         }
              
@@ -160,7 +164,7 @@ class StudentController extends Controller
         return redirect('student');
     }
 
-    /* update data all
+
     public function massUpdate() {
         $student = Student::all();
         collect($student)->map(function($item){
@@ -168,5 +172,5 @@ class StudentController extends Controller
             $item->save();
         });
     }
-    */
+    
 }

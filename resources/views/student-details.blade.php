@@ -157,6 +157,22 @@
                       @endforeach
                     </select>
                   </div>
+
+                  <div class="row mb-3">
+                    <label class="col-md-4 col-lg-3 col-form-label">Extra</label>
+                    <div class="col-md-8 col-lg-9">
+                      <select style="width: 100% !important" id="e1" class="form-select" name="extracurriculars[]" multiple>
+                        @foreach ($extracurriculars as $extracurricular)
+                            <option value="{{ $extracurricular->id }}"
+                              @if ($student->extracurriculars->contains($extracurricular->id))
+                              selected
+                              @endif
+                              >{{ $extracurricular->name }}</option>
+                        @endforeach
+                      </select>
+                    </div>
+                  </div>
+                  </div>
                   </div>
 
                   <div class="text-center">
